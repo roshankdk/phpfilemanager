@@ -22,6 +22,24 @@
         </form>
     </section>
 
+    <!-- Display Messages -->
+    <section>
+        <?php
+        session_start(); // Start the session
+
+        // Display success or error messages
+        if (isset($_SESSION['message'])) {
+            echo '<p class="success">' . $_SESSION['message'] . '</p>';
+            unset($_SESSION['message']);
+        }
+
+        if (isset($_SESSION['error'])) {
+            echo '<p class="error">' . $_SESSION['error'] . '</p>';
+            unset($_SESSION['error']);
+        }
+        ?>
+    </section>
+
     <!-- File List -->
     <h2>Uploaded Files</h2>
     <section>
@@ -37,7 +55,13 @@
                 // Read files and directories
                 while (($file = readdir($dh)) !== false) {
                     if ($file != "." && $file != "..") {
-                        echo '<li><a href="' . $directory . $file . '" target="_blank">' . htmlspecialchars($file) . '</a></li>';
+                        echo '<li>';
+                        echo '<a href="' . $directory . $file . '" target="_blank">' . htmlspecialchars($file) . '</a>';
+                        echo '<form action="delete.php" method="post" style="display:inline-block;">';
+                        echo '<input type="hidden" name="fileToDelete" value="' . htmlspecialchars($file) . '">';
+                        echo '<input type="submit" value="Delete" class="delete-button">';
+                        echo '</form>';
+                        echo '</li>';
                     }
                 }
                 echo '</ul>';
