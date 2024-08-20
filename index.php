@@ -58,7 +58,7 @@
                         echo '<li>';
                         echo '<a href="' . $directory . $file . '" target="_blank">' . htmlspecialchars($file) . '</a>';
                         echo '<form action="delete.php" method="post" style="display:inline-block;">';
-                        echo '<input type="hidden" name="fileToDelete" value="' . htmlspecialchars($file) . '">';
+                        echo '<input type="hidden" name="fileToDelete" value='. htmlspecialchars(urlencode($file)) . '>';
                         echo '<input type="submit" value="Delete" class="delete-button">';
                         echo '</form>';
                         echo '</li>';
